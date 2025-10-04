@@ -1,0 +1,656 @@
+{
+	"info": {
+		"_postman_id": "siraj-al-din-complete-api",
+		"name": "Siraj Al Din - Complete API Collection",
+		"description": "Complete API collection for Siraj Al Din project with Home, Categories, and Content endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "🏠 Home & Main Sections",
+			"item": [
+				{
+					"name": "Get All Menus (Home)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/menus",
+							"host": ["{{base_url}}"],
+							"path": ["api", "menus"]
+						},
+						"description": "Get all main menu sections for home page"
+					}
+				},
+				{
+					"name": "Get Active Header Menus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/menus/header/active",
+							"host": ["{{base_url}}"],
+							"path": ["api", "menus", "header", "active"]
+						},
+						"description": "Get only active header menus"
+					}
+				},
+				{
+					"name": "Get Menu by Position",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/menus/position/bottom_header",
+							"host": ["{{base_url}}"],
+							"path": ["api", "menus", "position", "bottom_header"]
+						},
+						"description": "Get menus by specific position"
+					}
+				}
+			]
+		},
+		{
+			"name": "📰 Articles Section",
+			"item": [
+				{
+					"name": "Get All Article Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/articles/main",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "articles", "main"]
+						},
+						"description": "Get all main article categories"
+					}
+				},
+				{
+					"name": "Get Article Subcategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/articles/1/subcategories",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "articles", "1", "subcategories"]
+						},
+						"description": "Get subcategories for article category ID 1"
+					}
+				},
+				{
+					"name": "Get Articles by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/articles/1/content",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "articles", "1", "content"]
+						},
+						"description": "Get all articles in category ID 1"
+					}
+				},
+				{
+					"name": "Get All Articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/articles",
+							"host": ["{{base_url}}"],
+							"path": ["api", "articles"]
+						},
+						"description": "Get all articles"
+					}
+				},
+				{
+					"name": "Get Article by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/articles/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "articles", "1"]
+						},
+						"description": "Get specific article by ID"
+					}
+				},
+				{
+					"name": "Get New Articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/articles/new/latest",
+							"host": ["{{base_url}}"],
+							"path": ["api", "articles", "new", "latest"]
+						},
+						"description": "Get latest new articles"
+					}
+				},
+				{
+					"name": "Get Priority Articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/articles/priority/featured",
+							"host": ["{{base_url}}"],
+							"path": ["api", "articles", "priority", "featured"]
+						},
+						"description": "Get featured priority articles"
+					}
+				}
+			]
+		},
+		{
+			"name": "📚 Books Section",
+			"item": [
+				{
+					"name": "Get All Book Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/books/main",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "books", "main"]
+						},
+						"description": "Get all main book categories"
+					}
+				},
+				{
+					"name": "Get Book Subcategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/books/1/subcategories",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "books", "1", "subcategories"]
+						},
+						"description": "Get subcategories for book category ID 1"
+					}
+				},
+				{
+					"name": "Get Books by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/books/1/content",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "books", "1", "content"]
+						},
+						"description": "Get all books in category ID 1"
+					}
+				},
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": ["{{base_url}}"],
+							"path": ["api", "books"]
+						},
+						"description": "Get all books"
+					}
+				},
+				{
+					"name": "Get Book by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "books", "1"]
+						},
+						"description": "Get specific book by ID"
+					}
+				},
+				{
+					"name": "Get Books by Format - PDF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/format/pdf",
+							"host": ["{{base_url}}"],
+							"path": ["api", "books", "format", "pdf"]
+						},
+						"description": "Get books in PDF format"
+					}
+				},
+				{
+					"name": "Get Books by Format - EPUB",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/format/epub",
+							"host": ["{{base_url}}"],
+							"path": ["api", "books", "format", "epub"]
+						},
+						"description": "Get books in EPUB format"
+					}
+				}
+			]
+		},
+		{
+			"name": "🎥 Videos Section",
+			"item": [
+				{
+					"name": "Get All Video Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/videos/main",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "videos", "main"]
+						},
+						"description": "Get all main video categories"
+					}
+				},
+				{
+					"name": "Get Video Subcategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/videos/1/subcategories",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "videos", "1", "subcategories"]
+						},
+						"description": "Get subcategories for video category ID 1"
+					}
+				},
+				{
+					"name": "Get Videos by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/videos/1/content",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "videos", "1", "content"]
+						},
+						"description": "Get all videos in category ID 1"
+					}
+				},
+				{
+					"name": "Get All Videos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/videos",
+							"host": ["{{base_url}}"],
+							"path": ["api", "videos"]
+						},
+						"description": "Get all videos"
+					}
+				},
+				{
+					"name": "Get Video by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/videos/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "videos", "1"]
+						},
+						"description": "Get specific video by ID"
+					}
+				},
+				{
+					"name": "Get YouTube Videos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/videos/youtube/all",
+							"host": ["{{base_url}}"],
+							"path": ["api", "videos", "youtube", "all"]
+						},
+						"description": "Get all videos with YouTube ID"
+					}
+				}
+			]
+		},
+		{
+			"name": "🎵 Sounds Section",
+			"item": [
+				{
+					"name": "Get All Sound Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/sounds/main",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "sounds", "main"]
+						},
+						"description": "Get all main sound categories"
+					}
+				},
+				{
+					"name": "Get Sound Subcategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/sounds/1/subcategories",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "sounds", "1", "subcategories"]
+						},
+						"description": "Get subcategories for sound category ID 1"
+					}
+				},
+				{
+					"name": "Get Sounds by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/sounds/1/content",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "sounds", "1", "content"]
+						},
+						"description": "Get all sounds in category ID 1"
+					}
+				},
+				{
+					"name": "Get All Sounds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/sounds",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sounds"]
+						},
+						"description": "Get all sounds"
+					}
+				},
+				{
+					"name": "Get Sound by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/sounds/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sounds", "1"]
+						},
+						"description": "Get specific sound by ID"
+					}
+				}
+			]
+		},
+		{
+			"name": "🖼️ Photo Galleries Section",
+			"item": [
+				{
+					"name": "Get All Photo Gallery Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/photo_galleries/main",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "photo_galleries", "main"]
+						},
+						"description": "Get all main photo gallery categories"
+					}
+				},
+				{
+					"name": "Get Photo Gallery Subcategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/photo_galleries/1/subcategories",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "photo_galleries", "1", "subcategories"]
+						},
+						"description": "Get subcategories for photo gallery category ID 1"
+					}
+				},
+				{
+					"name": "Get Photo Galleries by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/photo_galleries/1/content",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "photo_galleries", "1", "content"]
+						},
+						"description": "Get all photo galleries in category ID 1"
+					}
+				},
+				{
+					"name": "Get All Photo Galleries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/photo-galleries",
+							"host": ["{{base_url}}"],
+							"path": ["api", "photo-galleries"]
+						},
+						"description": "Get all photo galleries"
+					}
+				},
+				{
+					"name": "Get Photo Gallery by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/photo-galleries/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "photo-galleries", "1"]
+						},
+						"description": "Get specific photo gallery by ID"
+					}
+				}
+			]
+		},
+		{
+			"name": "📄 Pages Section",
+			"item": [
+				{
+					"name": "Get All Pages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pages",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pages"]
+						},
+						"description": "Get all pages"
+					}
+				},
+				{
+					"name": "Get Page by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pages/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pages", "1"]
+						},
+						"description": "Get specific page by ID"
+					}
+				},
+				{
+					"name": "Get New Pages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pages/new/latest",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pages", "new", "latest"]
+						},
+						"description": "Get latest new pages"
+					}
+				},
+				{
+					"name": "Get Priority Pages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/pages/priority/featured",
+							"host": ["{{base_url}}"],
+							"path": ["api", "pages", "priority", "featured"]
+						},
+						"description": "Get featured priority pages"
+					}
+				}
+			]
+		},
+		{
+			"name": "🔗 Links Section",
+			"item": [
+				{
+					"name": "Get All Links",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/links",
+							"host": ["{{base_url}}"],
+							"path": ["api", "links"]
+						},
+						"description": "Get all links"
+					}
+				},
+				{
+					"name": "Get Link by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/links/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "links", "1"]
+						},
+						"description": "Get specific link by ID"
+					}
+				},
+				{
+					"name": "Get Links by Menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/links/menu/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "links", "menu", "1"]
+						},
+						"description": "Get links for specific menu ID"
+					}
+				}
+			]
+		},
+		{
+			"name": "📊 Dashboard & Statistics",
+			"item": [
+				{
+					"name": "Get Dashboard Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/dashboard/summary",
+							"host": ["{{base_url}}"],
+							"path": ["api", "dashboard", "summary"]
+						},
+						"description": "Get overall statistics and counts"
+					}
+				},
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/health",
+							"host": ["{{base_url}}"],
+							"path": ["api", "health"]
+						},
+						"description": "Check API health status"
+					}
+				}
+			]
+		},
+		{
+			"name": "🔧 Dynamic Category Hierarchy",
+			"item": [
+				{
+					"name": "Get Categories by Menu ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/menu/46",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "menu", "46"]
+						},
+						"description": "Get all categories related to menu ID 46"
+					}
+				},
+				{
+					"name": "Get Categories by Menu ID (21)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/menu/21",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "menu", "21"]
+						},
+						"description": "Get all categories related to menu ID 21"
+					}
+				},
+				{
+					"name": "Get Categories by Menu ID (40)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/menu/40",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "menu", "40"]
+						},
+						"description": "Get all categories related to menu ID 40"
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
+
+
+
+
