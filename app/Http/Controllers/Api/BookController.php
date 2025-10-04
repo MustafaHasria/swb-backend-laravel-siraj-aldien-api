@@ -43,6 +43,11 @@ class BookController extends Controller
         $books = $query->orderBy('book_date', 'desc')
             ->paginate($perPage);
 
+        // Add file and image URLs to each book
+        $books->getCollection()->transform(function ($book) {
+            return $this->addBookUrls($book);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $books,
@@ -68,6 +73,9 @@ class BookController extends Controller
         // Increment visitor count
         $book->increment('book_visitor');
 
+        // Add file and image URLs
+        $book = $this->addBookUrls($book);
+
         return response()->json([
             'success' => true,
             'data' => $book,
@@ -87,6 +95,11 @@ class BookController extends Controller
             ->limit(10)
             ->get();
 
+        // Add file and image URLs to each book
+        $books->transform(function ($book) {
+            return $this->addBookUrls($book);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $books,
@@ -104,6 +117,11 @@ class BookController extends Controller
             ->priority()
             ->orderBy('book_date', 'desc')
             ->get();
+
+        // Add file and image URLs to each book
+        $books->transform(function ($book) {
+            return $this->addBookUrls($book);
+        });
 
         return response()->json([
             'success' => true,
@@ -129,6 +147,11 @@ class BookController extends Controller
         $perPage = $request->get('per_page', 15);
         $books = $query->orderBy('book_date', 'desc')
             ->paginate($perPage);
+
+        // Add file and image URLs to each book
+        $books->getCollection()->transform(function ($book) {
+            return $this->addBookUrls($book);
+        });
 
         return response()->json([
             'success' => true,
@@ -159,13 +182,47 @@ class BookController extends Controller
 
         $books = $query->orderBy('book_date', 'desc')->get();
 
+        // Add file and image URLs to each book
+        $books->transform(function ($book) {
+            return $this->addBookUrls($book);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $books,
             'message' => "Books with {$format} format retrieved successfully"
         ]);
     }
+
+    /**
+     * Add file and image URLs to book data
+     */
+    private function addBookUrls($book)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add file URLs
+        if ($book->book_file) {
+            $book->book_file_url = $baseUrl . '/files/book/' . $book->book_file;
+        }
+        if ($book->book_file_ePub) {
+            $book->book_file_epub_url = $baseUrl . '/files/book/' . $book->book_file_ePub;
+        }
+        if ($book->book_file_kfx) {
+            $book->book_file_kfx_url = $baseUrl . '/files/book/' . $book->book_file_kfx;
+        }
+        
+        // Add image URL
+        if ($book->book_pic) {
+            $book->book_pic_url = $baseUrl . '/images/book/' . $book->book_pic;
+        }
+        
+        return $book;
+    }
 }
+
+
+
 
 
 

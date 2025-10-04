@@ -43,6 +43,11 @@ class SoundController extends Controller
         $sounds = $query->orderBy('sound_date', 'desc')
             ->paginate($perPage);
 
+        // Add file URLs to each sound
+        $sounds->getCollection()->transform(function ($sound) {
+            return $this->addSoundUrls($sound);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $sounds,
@@ -68,6 +73,9 @@ class SoundController extends Controller
         // Increment visitor count
         $sound->increment('sound_visitor');
 
+        // Add file URLs
+        $sound = $this->addSoundUrls($sound);
+
         return response()->json([
             'success' => true,
             'data' => $sound,
@@ -87,6 +95,11 @@ class SoundController extends Controller
             ->limit(10)
             ->get();
 
+        // Add file URLs to each sound
+        $sounds->transform(function ($sound) {
+            return $this->addSoundUrls($sound);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $sounds,
@@ -104,6 +117,11 @@ class SoundController extends Controller
             ->priority()
             ->orderBy('sound_date', 'desc')
             ->get();
+
+        // Add file URLs to each sound
+        $sounds->transform(function ($sound) {
+            return $this->addSoundUrls($sound);
+        });
 
         return response()->json([
             'success' => true,
@@ -130,13 +148,36 @@ class SoundController extends Controller
         $sounds = $query->orderBy('sound_date', 'desc')
             ->paginate($perPage);
 
+        // Add file URLs to each sound
+        $sounds->getCollection()->transform(function ($sound) {
+            return $this->addSoundUrls($sound);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $sounds,
             'message' => 'Sounds by category retrieved successfully'
         ]);
     }
+
+    /**
+     * Add file URLs to sound data
+     */
+    private function addSoundUrls($sound)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add file URL
+        if ($sound->sound_file) {
+            $sound->sound_file_url = $baseUrl . '/files/sound/' . $sound->sound_file;
+        }
+        
+        return $sound;
+    }
 }
+
+
+
 
 
 

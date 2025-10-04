@@ -48,6 +48,11 @@ class VideoController extends Controller
         $videos = $query->orderBy('video_date', 'desc')
             ->paginate($perPage);
 
+        // Add file URLs to each video
+        $videos->getCollection()->transform(function ($video) {
+            return $this->addVideoUrls($video);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $videos,
@@ -73,6 +78,9 @@ class VideoController extends Controller
         // Increment visitor count
         $video->increment('video_visitor');
 
+        // Add file URLs
+        $video = $this->addVideoUrls($video);
+
         return response()->json([
             'success' => true,
             'data' => $video,
@@ -92,6 +100,11 @@ class VideoController extends Controller
             ->limit(10)
             ->get();
 
+        // Add file URLs to each video
+        $videos->transform(function ($video) {
+            return $this->addVideoUrls($video);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $videos,
@@ -109,6 +122,11 @@ class VideoController extends Controller
             ->priority()
             ->orderBy('video_date', 'desc')
             ->get();
+
+        // Add file URLs to each video
+        $videos->transform(function ($video) {
+            return $this->addVideoUrls($video);
+        });
 
         return response()->json([
             'success' => true,
@@ -135,6 +153,11 @@ class VideoController extends Controller
         $videos = $query->orderBy('video_date', 'desc')
             ->paginate($perPage);
 
+        // Add file URLs to each video
+        $videos->getCollection()->transform(function ($video) {
+            return $this->addVideoUrls($video);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $videos,
@@ -153,15 +176,33 @@ class VideoController extends Controller
             ->orderBy('video_date', 'desc')
             ->get();
 
+        // Add file URLs to each video
+        $videos->transform(function ($video) {
+            return $this->addVideoUrls($video);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $videos,
             'message' => 'YouTube videos retrieved successfully'
         ]);
     }
+
+    /**
+     * Add file URLs to video data
+     */
+    private function addVideoUrls($video)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add file URL
+        if ($video->video_file) {
+            $video->video_file_url = $baseUrl . '/files/video/' . $video->video_file;
+        }
+        
+        return $video;
+    }
 }
-
-
 
 
 

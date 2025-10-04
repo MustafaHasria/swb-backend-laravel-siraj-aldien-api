@@ -43,6 +43,11 @@ class ArticleController extends Controller
         $articles = $query->orderBy('article_date', 'desc')
             ->paginate($perPage);
 
+        // Add file URLs to each article
+        $articles->getCollection()->transform(function ($article) {
+            return $this->addArticleUrls($article);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $articles,
@@ -68,6 +73,9 @@ class ArticleController extends Controller
         // Increment visitor count
         $article->increment('article_visitor');
 
+        // Add file URLs
+        $article = $this->addArticleUrls($article);
+
         return response()->json([
             'success' => true,
             'data' => $article,
@@ -87,6 +95,11 @@ class ArticleController extends Controller
             ->limit(10)
             ->get();
 
+        // Add file URLs to each article
+        $articles->transform(function ($article) {
+            return $this->addArticleUrls($article);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $articles,
@@ -104,6 +117,11 @@ class ArticleController extends Controller
             ->priority()
             ->orderBy('article_date', 'desc')
             ->get();
+
+        // Add file URLs to each article
+        $articles->transform(function ($article) {
+            return $this->addArticleUrls($article);
+        });
 
         return response()->json([
             'success' => true,
@@ -130,13 +148,36 @@ class ArticleController extends Controller
         $articles = $query->orderBy('article_date', 'desc')
             ->paginate($perPage);
 
+        // Add file URLs to each article
+        $articles->getCollection()->transform(function ($article) {
+            return $this->addArticleUrls($article);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $articles,
             'message' => 'Articles by category retrieved successfully'
         ]);
     }
+
+    /**
+     * Add file URLs to article data
+     */
+    private function addArticleUrls($article)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add file URL if article has a file
+        if ($article->article_file) {
+            $article->article_file_url = $baseUrl . '/files/article/' . $article->article_file;
+        }
+        
+        return $article;
+    }
 }
+
+
+
 
 
 

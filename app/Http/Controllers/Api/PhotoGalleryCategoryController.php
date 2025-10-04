@@ -122,3 +122,6 @@ class PhotoGalleryCategoryController extends Controller
 
 
 
+
+
+

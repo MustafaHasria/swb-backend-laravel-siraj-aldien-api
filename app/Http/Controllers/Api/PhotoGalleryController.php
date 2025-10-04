@@ -43,6 +43,11 @@ class PhotoGalleryController extends Controller
         $galleries = $query->orderBy('gallery_date', 'desc')
             ->paginate($perPage);
 
+        // Add image URLs to each gallery
+        $galleries->getCollection()->transform(function ($gallery) {
+            return $this->addPhotoGalleryUrls($gallery);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $galleries,
@@ -68,6 +73,9 @@ class PhotoGalleryController extends Controller
         // Increment visitor count
         $gallery->increment('gallery_visitor');
 
+        // Add image URLs
+        $gallery = $this->addPhotoGalleryUrls($gallery);
+
         return response()->json([
             'success' => true,
             'data' => $gallery,
@@ -87,6 +95,11 @@ class PhotoGalleryController extends Controller
             ->limit(10)
             ->get();
 
+        // Add image URLs to each gallery
+        $galleries->transform(function ($gallery) {
+            return $this->addPhotoGalleryUrls($gallery);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $galleries,
@@ -104,6 +117,11 @@ class PhotoGalleryController extends Controller
             ->priority()
             ->orderBy('gallery_date', 'desc')
             ->get();
+
+        // Add image URLs to each gallery
+        $galleries->transform(function ($gallery) {
+            return $this->addPhotoGalleryUrls($gallery);
+        });
 
         return response()->json([
             'success' => true,
@@ -130,13 +148,41 @@ class PhotoGalleryController extends Controller
         $galleries = $query->orderBy('gallery_date', 'desc')
             ->paginate($perPage);
 
+        // Add image URLs to each gallery
+        $galleries->getCollection()->transform(function ($gallery) {
+            return $this->addPhotoGalleryUrls($gallery);
+        });
+
         return response()->json([
             'success' => true,
             'data' => $galleries,
             'message' => 'Photo galleries by category retrieved successfully'
         ]);
     }
+
+    /**
+     * Add image URLs to photo gallery data
+     */
+    private function addPhotoGalleryUrls($gallery)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add thumbnail image URL
+        if ($gallery->gallery_pic) {
+            $gallery->gallery_pic_thumbnail_url = $baseUrl . '/images/photo_gallery/' . $gallery->gallery_pic;
+        }
+        
+        // Add full size image URL
+        if ($gallery->gallery_pic) {
+            $gallery->gallery_pic_full_url = $baseUrl . '/images/photo_gallery_full_size/' . $gallery->gallery_pic;
+        }
+        
+        return $gallery;
+    }
 }
+
+
+
 
 
 
