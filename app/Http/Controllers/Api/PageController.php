@@ -14,7 +14,8 @@ class PageController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $query = Page::active()->select('pages_id', 'pages_title', 'pages_menus', 'pages_priority', 'pages_date');
+        $query = Page::active()->select('pages_id', 'pages_title', 'pages_menus', 'pages_priority', 'pages_date')
+            ->where('pages_menus', 46); // Only get pages with menu_id = 46
 
         // Filter by new pages
         if ($request->has('is_new') && $request->is_new) {
@@ -29,11 +30,6 @@ class PageController extends Controller
         // Search by title
         if ($request->has('search')) {
             $query->where('pages_title', 'like', '%' . $request->search . '%');
-        }
-
-        // Filter by menu
-        if ($request->has('menu_id')) {
-            $query->where('pages_menus', $request->menu_id);
         }
 
         // Pagination

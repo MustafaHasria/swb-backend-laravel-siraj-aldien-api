@@ -152,11 +152,3 @@ class SimpleSectionsController extends Controller
         }
     }
 }
-
-
-
-
-
-
-
-

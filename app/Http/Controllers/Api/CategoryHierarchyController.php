@@ -320,7 +320,8 @@ class CategoryHierarchyController extends Controller
                     'menu_id' => $category->cat_menus,
                     'show_in_menu' => $category->cat_show_menu,
                     'show_in_main' => $category->cat_show_main,
-                    'content_count' => $this->getContentCount($type, $category->cat_id)
+                    'content_count' => $this->getContentCount($type, $category->cat_id),
+                    'type' => $type
                 ];
 
                 // Add data if requested
@@ -331,10 +332,15 @@ class CategoryHierarchyController extends Controller
                 $result[] = $categoryData;
             }
 
-            // Add pages if requested and type is sounds
+
+            // Add pages if requested for sounds or books
             $pages = [];
-            if ($includePages && $type === 'sounds') {
-                $pages = $this->getPagesForMenu(55); // Menu ID for sounds
+            if ($includePages) {
+                if ($type === 'sounds') {
+                    $pages = $this->getPagesForMenu(55); // Menu ID for sounds
+                } elseif ($type === 'books') {
+                    $pages = $this->getPagesForMenu(21); // Menu ID for books
+                }
             }
 
             $responseData = [
