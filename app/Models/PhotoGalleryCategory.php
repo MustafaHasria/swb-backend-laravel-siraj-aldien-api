@@ -61,7 +61,7 @@ class PhotoGalleryCategory extends Model
     // Relationship with galleries
     public function galleries()
     {
-        return $this->hasMany(PhotoGallery::class, 'gallery_cat_id', 'cat_id');
+        return $this->hasMany(PhotoGallery::class, 'photo_gallery_cat_id', 'cat_id');
     }
 
     // Relationship with menu

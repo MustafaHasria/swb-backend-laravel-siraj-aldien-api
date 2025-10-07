@@ -216,11 +216,11 @@ class MainSectionsController extends Controller
 
             return $content->map(function($item) {
                 return [
-                    'id' => $item->id ?? $item->article_id ?? $item->book_id ?? $item->video_id ?? $item->sound_id ?? $item->gallery_id ?? $item->pages_id,
-                    'title' => $item->title ?? $item->article_title ?? $item->book_title ?? $item->video_title ?? $item->sound_title ?? $item->gallery_title ?? $item->pages_title,
-                    'summary' => $item->summary ?? $item->article_summary ?? $item->book_summary ?? $item->video_summary ?? $item->sound_summary ?? $item->gallery_summary ?? $item->pages_summary,
-                    'date' => $item->date ?? $item->article_date ?? $item->book_date ?? $item->video_date ?? $item->sound_date ?? $item->gallery_date ?? $item->pages_date,
-                    'visitor_count' => $item->visitor ?? $item->article_visitor ?? $item->book_visitor ?? $item->video_visitor ?? $item->sound_visitor ?? $item->gallery_visitor ?? $item->pages_visitor
+                    'id' => $item->id ?? $item->article_id ?? $item->book_id ?? $item->video_id ?? $item->sound_id ?? $item->photo_gallery_id ?? $item->pages_id,
+                    'title' => $item->title ?? $item->article_title ?? $item->book_title ?? $item->video_title ?? $item->sound_title ?? $item->photo_gallery_title ?? $item->pages_title,
+                    'summary' => $item->summary ?? $item->article_summary ?? $item->book_summary ?? $item->video_summary ?? $item->sound_summary ?? $item->photo_gallery_summary ?? $item->pages_summary,
+                    'date' => $item->date ?? $item->article_date ?? $item->book_date ?? $item->video_date ?? $item->sound_date ?? $item->photo_gallery_date ?? $item->pages_date,
+                    'visitor_count' => $item->visitor ?? $item->article_visitor ?? $item->book_visitor ?? $item->video_visitor ?? $item->sound_visitor ?? $item->photo_gallery_visitor ?? $item->pages_visitor
                 ];
             })->toArray();
         } catch (\Exception $e) {

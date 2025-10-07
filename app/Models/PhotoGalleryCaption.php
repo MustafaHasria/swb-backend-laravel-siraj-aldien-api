@@ -44,7 +44,7 @@ class PhotoGalleryCaption extends Model
     // Relationship with gallery
     public function gallery()
     {
-        return $this->belongsTo(PhotoGallery::class, 'cap_ref_id', 'gallery_id');
+        return $this->belongsTo(PhotoGallery::class, 'cap_ref_id', 'photo_gallery_id');
     }
 }
 

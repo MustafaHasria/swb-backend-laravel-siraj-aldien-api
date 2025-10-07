@@ -419,13 +419,8 @@ class CategoryHierarchyController extends Controller
             $categoryField = $this->getCategoryField($type);
             
             // Build base query
-            if ($type === 'photo-galleries') {
-                $query = $contentModel::where('gallery_active', 1)
-                    ->where($categoryField, $categoryId);
-            } else {
-                $query = $contentModel::active()
-                    ->where($categoryField, $categoryId);
-            }
+            $query = $contentModel::active()
+                ->where($categoryField, $categoryId);
 
             // Get total count for pagination
             $totalItems = $query->count();
@@ -522,9 +517,6 @@ class CategoryHierarchyController extends Controller
         if (!$contentModel) return 0;
 
         $categoryField = $this->getCategoryField($type);
-        if ($type === 'photo-galleries') {
-            return $contentModel::where('gallery_active', 1)->where($categoryField, $categoryId)->count();
-        }
         return $contentModel::active()->where($categoryField, $categoryId)->count();
     }
 
@@ -539,21 +531,12 @@ class CategoryHierarchyController extends Controller
         $categoryField = $this->getCategoryField($type);
         
         // Build query
-        if ($type === 'photo-galleries') {
-            $content = $contentModel::where('gallery_active', 1)
-                ->where($categoryField, $categoryId)
-                ->orderBy($this->getPriorityField($type), 'desc')
-                ->orderBy($this->getDateField($type), 'desc')
-                ->limit($limit)
-                ->get();
-        } else {
-            $content = $contentModel::active()
-                ->where($categoryField, $categoryId)
-                ->orderBy($this->getPriorityField($type), 'desc')
-                ->orderBy($this->getDateField($type), 'desc')
-                ->limit($limit)
-                ->get();
-        }
+        $content = $contentModel::active()
+            ->where($categoryField, $categoryId)
+            ->orderBy($this->getPriorityField($type), 'desc')
+            ->orderBy($this->getDateField($type), 'desc')
+            ->limit($limit)
+            ->get();
 
         $examples = [];
         foreach ($content as $item) {
@@ -666,8 +649,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_cat_id',
             'videos' => 'video_cat_id',
             'sounds' => 'sound_cat_id',
-            'photo-galleries' => 'gallery_cat_id',
-            'photo_galleries' => 'gallery_cat_id'
+            'photo-galleries' => 'photo_gallery_cat_id',
+            'photo_galleries' => 'photo_gallery_cat_id'
         ];
 
         return $fields[$type] ?? null;
@@ -683,8 +666,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_priority',
             'videos' => 'video_priority',
             'sounds' => 'sound_priority',
-            'photo-galleries' => 'gallery_priority',
-            'photo_galleries' => 'gallery_priority'
+            'photo-galleries' => 'photo_gallery_is_new',
+            'photo_galleries' => 'photo_gallery_is_new'
         ];
 
         return $fields[$type] ?? 'priority';
@@ -700,8 +683,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_date',
             'videos' => 'video_date',
             'sounds' => 'sound_date',
-            'photo-galleries' => 'gallery_date',
-            'photo_galleries' => 'gallery_date'
+            'photo-galleries' => 'photo_gallery_date',
+            'photo_galleries' => 'photo_gallery_date'
         ];
 
         return $fields[$type] ?? 'date';
@@ -717,8 +700,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_id',
             'videos' => 'video_id',
             'sounds' => 'sound_id',
-            'photo-galleries' => 'gallery_id',
-            'photo_galleries' => 'gallery_id'
+            'photo-galleries' => 'photo_gallery_id',
+            'photo_galleries' => 'photo_gallery_id'
         ];
 
         $field = $fields[$type] ?? 'id';
@@ -735,8 +718,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_title',
             'videos' => 'video_title',
             'sounds' => 'sound_title',
-            'photo-galleries' => 'gallery_title',
-            'photo_galleries' => 'gallery_title'
+            'photo-galleries' => 'photo_gallery_title',
+            'photo_galleries' => 'photo_gallery_title'
         ];
 
         $field = $fields[$type] ?? 'title';
@@ -753,8 +736,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_summary',
             'videos' => 'video_summary',
             'sounds' => 'sound_summary',
-            'photo-galleries' => 'gallery_summary',
-            'photo_galleries' => 'gallery_summary'
+            'photo-galleries' => 'photo_gallery_summary',
+            'photo_galleries' => 'photo_gallery_summary'
         ];
 
         $field = $fields[$type] ?? 'summary';
@@ -771,8 +754,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_date',
             'videos' => 'video_date',
             'sounds' => 'sound_date',
-            'photo-galleries' => 'gallery_date',
-            'photo_galleries' => 'gallery_date'
+            'photo-galleries' => 'photo_gallery_date',
+            'photo_galleries' => 'photo_gallery_date'
         ];
 
         $field = $fields[$type] ?? 'date';
@@ -789,8 +772,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_visitor',
             'videos' => 'video_visitor',
             'sounds' => 'sound_visitor',
-            'photo-galleries' => 'gallery_visitor',
-            'photo_galleries' => 'gallery_visitor'
+            'photo-galleries' => 'photo_gallery_visitor',
+            'photo_galleries' => 'photo_gallery_visitor'
         ];
 
         $field = $fields[$type] ?? 'visitor';
@@ -807,8 +790,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_is_new',
             'videos' => 'video_is_new',
             'sounds' => 'sound_is_new',
-            'photo-galleries' => 'gallery_is_new',
-            'photo_galleries' => 'gallery_is_new'
+            'photo-galleries' => 'photo_gallery_is_new',
+            'photo_galleries' => 'photo_gallery_is_new'
         ];
 
         $field = $fields[$type] ?? 'is_new';
@@ -825,8 +808,8 @@ class CategoryHierarchyController extends Controller
             'books' => 'book_priority',
             'videos' => 'video_priority',
             'sounds' => 'sound_priority',
-            'photo-galleries' => 'gallery_priority',
-            'photo_galleries' => 'gallery_priority'
+            'photo-galleries' => 'photo_gallery_is_new',
+            'photo_galleries' => 'photo_gallery_is_new'
         ];
 
         $field = $fields[$type] ?? 'priority';

@@ -197,7 +197,6 @@ Route::prefix('photo-galleries')->group(function () {
     Route::get('/', [PhotoGalleryController::class, 'index']);
     Route::get('/{id}', [PhotoGalleryController::class, 'show']);
     Route::get('/new/latest', [PhotoGalleryController::class, 'new']);
-    Route::get('/priority/featured', [PhotoGalleryController::class, 'priority']);
     Route::get('/category/{categoryId}', [PhotoGalleryController::class, 'byCategory']);
 });
 

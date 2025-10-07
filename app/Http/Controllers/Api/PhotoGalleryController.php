@@ -20,7 +20,7 @@ class PhotoGalleryController extends Controller
 
         // Filter by category
         if ($request->has('category_id')) {
-            $query->where('gallery_cat_id', $request->category_id);
+            $query->where('photo_gallery_cat_id', $request->category_id);
         }
 
         // Filter by new galleries
@@ -28,19 +28,14 @@ class PhotoGalleryController extends Controller
             $query->new();
         }
 
-        // Filter by priority galleries
-        if ($request->has('is_priority') && $request->is_priority) {
-            $query->priority();
-        }
-
         // Search by title
         if ($request->has('search')) {
-            $query->where('gallery_title', 'like', '%' . $request->search . '%');
+            $query->where('photo_gallery_title', 'like', '%' . $request->search . '%');
         }
 
         // Pagination
         $perPage = $request->get('per_page', 15);
-        $galleries = $query->orderBy('gallery_date', 'desc')
+        $galleries = $query->orderBy('photo_gallery_date', 'desc')
             ->paginate($perPage);
 
         // Add image URLs to each gallery
@@ -71,7 +66,7 @@ class PhotoGalleryController extends Controller
         }
 
         // Increment visitor count
-        $gallery->increment('gallery_visitor');
+        $gallery->increment('photo_gallery_visitor');
 
         // Add image URLs
         $gallery = $this->addPhotoGalleryUrls($gallery);
@@ -91,7 +86,7 @@ class PhotoGalleryController extends Controller
         $galleries = PhotoGallery::with(['category'])
             ->active()
             ->new()
-            ->orderBy('gallery_date', 'desc')
+            ->orderBy('photo_gallery_date', 'desc')
             ->limit(10)
             ->get();
 
@@ -107,28 +102,6 @@ class PhotoGalleryController extends Controller
         ]);
     }
 
-    /**
-     * Get priority photo galleries
-     */
-    public function priority(): JsonResponse
-    {
-        $galleries = PhotoGallery::with(['category'])
-            ->active()
-            ->priority()
-            ->orderBy('gallery_date', 'desc')
-            ->get();
-
-        // Add image URLs to each gallery
-        $galleries->transform(function ($gallery) {
-            return $this->addPhotoGalleryUrls($gallery);
-        });
-
-        return response()->json([
-            'success' => true,
-            'data' => $galleries,
-            'message' => 'Priority photo galleries retrieved successfully'
-        ]);
-    }
 
     /**
      * Get photo galleries by category
@@ -137,15 +110,15 @@ class PhotoGalleryController extends Controller
     {
         $query = PhotoGallery::with(['category', 'captions', 'votes'])
             ->active()
-            ->where('gallery_cat_id', $categoryId);
+            ->where('photo_gallery_cat_id', $categoryId);
 
         // Search within category
         if ($request->has('search')) {
-            $query->where('gallery_title', 'like', '%' . $request->search . '%');
+            $query->where('photo_gallery_title', 'like', '%' . $request->search . '%');
         }
 
         $perPage = $request->get('per_page', 15);
-        $galleries = $query->orderBy('gallery_date', 'desc')
+        $galleries = $query->orderBy('photo_gallery_date', 'desc')
             ->paginate($perPage);
 
         // Add image URLs to each gallery
@@ -168,13 +141,13 @@ class PhotoGalleryController extends Controller
         $baseUrl = 'https://srajalden.com';
         
         // Add thumbnail image URL
-        if ($gallery->gallery_pic) {
-            $gallery->gallery_pic_thumbnail_url = $baseUrl . '/images/photo_gallery/' . $gallery->gallery_pic;
+        if ($gallery->photo_gallery_pic) {
+            $gallery->photo_gallery_pic_thumbnail_url = $baseUrl . '/images/photo_gallery/' . $gallery->photo_gallery_pic;
         }
         
         // Add full size image URL
-        if ($gallery->gallery_pic) {
-            $gallery->gallery_pic_full_url = $baseUrl . '/images/photo_gallery_full_size/' . $gallery->gallery_pic;
+        if ($gallery->photo_gallery_pic) {
+            $gallery->photo_gallery_pic_full_url = $baseUrl . '/images/photo_gallery_full_size/' . $gallery->photo_gallery_pic;
         }
         
         return $gallery;
