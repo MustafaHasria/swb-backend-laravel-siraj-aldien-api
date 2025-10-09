@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\SimpleSectionsController;
 use App\Http\Controllers\Api\HierarchyController;
 use App\Http\Controllers\Api\CategoryHierarchyController;
+use App\Http\Controllers\Api\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,10 @@ Route::get('/health', function () {
 
 // Test endpoint
 Route::get('/test', [TestController::class, 'test']);
+
+// Search endpoints
+Route::get('/search', [SearchController::class, 'search']);
+Route::get('/search/suggestions', [SearchController::class, 'suggestions']);
 
 // Hierarchy endpoints
 Route::prefix('hierarchy')->controller(HierarchyController::class)->group(function () {
