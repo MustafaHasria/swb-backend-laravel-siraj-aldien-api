@@ -491,6 +491,28 @@ class CategoryHierarchyController extends Controller
                     $contentItem['content'] = $item->pages_content ?? '';
                 }
 
+                // Add URLs based on content type
+                if ($type === 'books') {
+                    $item = $this->addBookUrls($item);
+                    $contentItem['book_file_url'] = $item->book_file_url ?? '';
+                    $contentItem['book_file_epub_url'] = $item->book_file_epub_url ?? '';
+                    $contentItem['book_file_kfx_url'] = $item->book_file_kfx_url ?? '';
+                    $contentItem['book_pic_url'] = $item->book_pic_url ?? '';
+                } elseif ($type === 'videos') {
+                    $item = $this->addVideoUrls($item);
+                    $contentItem['video_file_url'] = $item->video_file_url ?? '';
+                } elseif ($type === 'sounds') {
+                    $item = $this->addSoundUrls($item);
+                    $contentItem['sound_file_url'] = $item->sound_file_url ?? '';
+                } elseif ($type === 'photo_galleries') {
+                    $item = $this->addPhotoGalleryUrls($item);
+                    $contentItem['photo_gallery_pic_thumbnail_url'] = $item->photo_gallery_pic_thumbnail_url ?? '';
+                    $contentItem['photo_gallery_pic_full_url'] = $item->photo_gallery_pic_full_url ?? '';
+                } elseif ($type === 'articles') {
+                    $item = $this->addArticleUrls($item);
+                    $contentItem['article_file_url'] = $item->article_file_url ?? '';
+                }
+
                 $result['content'][] = $contentItem;
             }
 
@@ -568,6 +590,28 @@ class CategoryHierarchyController extends Controller
                 $contentItem['picture'] = $item->photo_gallery_pic ?? '';
             } elseif ($type === 'pages') {
                 $contentItem['content'] = $item->pages_content ?? '';
+            }
+
+            // Add URLs based on content type
+            if ($type === 'books') {
+                $item = $this->addBookUrls($item);
+                $contentItem['book_file_url'] = $item->book_file_url ?? '';
+                $contentItem['book_file_epub_url'] = $item->book_file_epub_url ?? '';
+                $contentItem['book_file_kfx_url'] = $item->book_file_kfx_url ?? '';
+                $contentItem['book_pic_url'] = $item->book_pic_url ?? '';
+            } elseif ($type === 'videos') {
+                $item = $this->addVideoUrls($item);
+                $contentItem['video_file_url'] = $item->video_file_url ?? '';
+            } elseif ($type === 'sounds') {
+                $item = $this->addSoundUrls($item);
+                $contentItem['sound_file_url'] = $item->sound_file_url ?? '';
+            } elseif ($type === 'photo_galleries') {
+                $item = $this->addPhotoGalleryUrls($item);
+                $contentItem['photo_gallery_pic_thumbnail_url'] = $item->photo_gallery_pic_thumbnail_url ?? '';
+                $contentItem['photo_gallery_pic_full_url'] = $item->photo_gallery_pic_full_url ?? '';
+            } elseif ($type === 'articles') {
+                $item = $this->addArticleUrls($item);
+                $contentItem['article_file_url'] = $item->article_file_url ?? '';
             }
 
             $examples[] = $contentItem;
@@ -815,4 +859,92 @@ class CategoryHierarchyController extends Controller
         $field = $fields[$type] ?? 'priority';
         return $item->$field ?? $item->priority ?? 0;
     }
+
+    /**
+     * Add file and image URLs to book data (same logic as BookController)
+     */
+    private function addBookUrls($book)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add file URLs
+        if ($book->book_file) {
+            $book->book_file_url = $baseUrl . '/files/book/' . $book->book_file;
+        }
+        if ($book->book_file_ePub) {
+            $book->book_file_epub_url = $baseUrl . '/files/book/' . $book->book_file_ePub;
+        }
+        if ($book->book_file_kfx) {
+            $book->book_file_kfx_url = $baseUrl . '/files/book/' . $book->book_file_kfx;
+        }
+        
+        // Add image URL
+        if ($book->book_pic) {
+            $book->book_pic_url = $baseUrl . '/images/book/' . $book->book_pic;
+        }
+        
+        return $book;
+    }
+
+    /**
+     * Add file URL to video data
+     */
+    private function addVideoUrls($video)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add file URL
+        if ($video->video_file) {
+            $video->video_file_url = $baseUrl . '/files/video/' . $video->video_file;
+        }
+        
+        return $video;
+    }
+
+    /**
+     * Add file URL to sound data
+     */
+    private function addSoundUrls($sound)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add file URL
+        if ($sound->sound_file) {
+            $sound->sound_file_url = $baseUrl . '/files/sound/' . $sound->sound_file;
+        }
+        
+        return $sound;
+    }
+
+    /**
+     * Add image URLs to photo gallery data
+     */
+    private function addPhotoGalleryUrls($photoGallery)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add thumbnail and full-size image URLs
+        if ($photoGallery->photo_gallery_pic) {
+            $photoGallery->photo_gallery_pic_thumbnail_url = $baseUrl . '/images/photo_gallery/' . $photoGallery->photo_gallery_pic;
+            $photoGallery->photo_gallery_pic_full_url = $baseUrl . '/images/photo_gallery_full_size/' . $photoGallery->photo_gallery_pic;
+        }
+        
+        return $photoGallery;
+    }
+
+    /**
+     * Add file URL to article data (if file exists)
+     */
+    private function addArticleUrls($article)
+    {
+        $baseUrl = 'https://srajalden.com';
+        
+        // Add file URL if exists
+        if ($article->article_file) {
+            $article->article_file_url = $baseUrl . '/files/article/' . $article->article_file;
+        }
+        
+        return $article;
+    }
+
 }
