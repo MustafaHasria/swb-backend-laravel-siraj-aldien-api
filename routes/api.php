@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\SimpleSectionsController;
 use App\Http\Controllers\Api\HierarchyController;
 use App\Http\Controllers\Api\CategoryHierarchyController;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\ContactUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,9 @@ Route::get('/test', [TestController::class, 'test']);
 // Search endpoints
 Route::get('/search', [SearchController::class, 'search']);
 Route::get('/search/suggestions', [SearchController::class, 'suggestions']);
+
+// Contact Us endpoint
+Route::post('/contact-us', [ContactUsController::class, 'submit']);
 
 // Hierarchy endpoints
 Route::prefix('hierarchy')->controller(HierarchyController::class)->group(function () {
