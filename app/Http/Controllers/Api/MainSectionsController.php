@@ -204,13 +204,19 @@ class MainSectionsController extends Controller
         if (!$model) return [];
 
         try {
+            // Get proper field names based on type
+            $titleField = $this->getTitleFieldName($type);
+            $summaryField = $this->getSummaryFieldName($type);
+            $desField = $this->getDesFieldName($type);
+            $dateField = $this->getDateFieldName($type);
+            
             $content = $model::active()
-                ->where(function($query) use ($menuName) {
-                    $query->where('title', 'like', '%' . $menuName . '%')
-                          ->orWhere('summary', 'like', '%' . $menuName . '%')
-                          ->orWhere('des', 'like', '%' . $menuName . '%');
+                ->where(function($query) use ($titleField, $summaryField, $desField, $menuName) {
+                    $query->where($titleField, 'like', '%' . $menuName . '%')
+                          ->orWhere($summaryField, 'like', '%' . $menuName . '%')
+                          ->orWhere($desField, 'like', '%' . $menuName . '%');
                 })
-                ->orderBy('date', 'desc')
+                ->orderBy($dateField, 'asc')
                 ->limit(10)
                 ->get();
 
@@ -226,6 +232,66 @@ class MainSectionsController extends Controller
         } catch (\Exception $e) {
             return [];
         }
+    }
+    
+    /**
+     * Get title field name by type
+     */
+    private function getTitleFieldName($type): string
+    {
+        $fields = [
+            'articles' => 'article_title',
+            'books' => 'book_title',
+            'videos' => 'video_title',
+            'sounds' => 'sound_title',
+            'photo_galleries' => 'photo_gallery_title'
+        ];
+        return $fields[$type] ?? 'title';
+    }
+    
+    /**
+     * Get summary field name by type
+     */
+    private function getSummaryFieldName($type): string
+    {
+        $fields = [
+            'articles' => 'article_summary',
+            'books' => 'book_summary',
+            'videos' => 'video_summary',
+            'sounds' => 'sound_summary',
+            'photo_galleries' => 'photo_gallery_summary'
+        ];
+        return $fields[$type] ?? 'summary';
+    }
+    
+    /**
+     * Get description field name by type
+     */
+    private function getDesFieldName($type): string
+    {
+        $fields = [
+            'articles' => 'article_des',
+            'books' => 'book_des',
+            'videos' => 'video_des',
+            'sounds' => 'sound_des',
+            'photo_galleries' => 'photo_gallery_des'
+        ];
+        return $fields[$type] ?? 'des';
+    }
+    
+    /**
+     * Get date field name by type
+     */
+    private function getDateFieldName($type): string
+    {
+        $fields = [
+            'articles' => 'article_date',
+            'books' => 'book_date',
+            'videos' => 'video_date',
+            'sounds' => 'sound_date',
+            'photo_galleries' => 'photo_gallery_date'
+        ];
+        return $fields[$type] ?? 'date';
     }
 
     /**

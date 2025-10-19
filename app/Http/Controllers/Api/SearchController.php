@@ -248,7 +248,9 @@ class SearchController extends Controller
         ]);
 
         $this->applyFilters($query, $filters, 'book');
-        $this->applySorting($query, $sortBy, 'book');
+        
+        // Always sort books by date (oldest first)
+        $query->orderBy('book_date', 'asc');
 
         return $query->limit($perPage)->get()->map(function($item) use ($searchTerms) {
             $item = $this->formatBookResult($item);

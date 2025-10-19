@@ -427,11 +427,19 @@ class CategoryHierarchyController extends Controller
             $totalPages = ceil($totalItems / $perPage);
 
             // Apply ordering and pagination
-            $content = $query->orderBy($this->getPriorityField($type), 'desc')
-                ->orderBy($this->getDateField($type), 'desc')
-                ->skip(($page - 1) * $perPage)
-                ->take($perPage)
-                ->get();
+            // For books, order by date only (oldest first)
+            if ($type === 'books') {
+                $content = $query->orderBy($this->getDateField($type), 'asc')
+                    ->skip(($page - 1) * $perPage)
+                    ->take($perPage)
+                    ->get();
+            } else {
+                $content = $query->orderBy($this->getPriorityField($type), 'desc')
+                    ->orderBy($this->getDateField($type), 'desc')
+                    ->skip(($page - 1) * $perPage)
+                    ->take($perPage)
+                    ->get();
+            }
 
             $result = [
                 'category' => [
@@ -553,12 +561,21 @@ class CategoryHierarchyController extends Controller
         $categoryField = $this->getCategoryField($type);
         
         // Build query
-        $content = $contentModel::active()
-            ->where($categoryField, $categoryId)
-            ->orderBy($this->getPriorityField($type), 'desc')
-            ->orderBy($this->getDateField($type), 'desc')
-            ->limit($limit)
-            ->get();
+        // For books, order by date only (oldest first)
+        if ($type === 'books') {
+            $content = $contentModel::active()
+                ->where($categoryField, $categoryId)
+                ->orderBy($this->getDateField($type), 'asc')
+                ->limit($limit)
+                ->get();
+        } else {
+            $content = $contentModel::active()
+                ->where($categoryField, $categoryId)
+                ->orderBy($this->getPriorityField($type), 'desc')
+                ->orderBy($this->getDateField($type), 'desc')
+                ->limit($limit)
+                ->get();
+        }
 
         $examples = [];
         foreach ($content as $item) {

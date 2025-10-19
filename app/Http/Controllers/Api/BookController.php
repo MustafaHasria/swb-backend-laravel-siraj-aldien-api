@@ -40,7 +40,7 @@ class BookController extends Controller
 
         // Pagination
         $perPage = $request->get('per_page', 15);
-        $books = $query->orderBy('book_date', 'desc')
+        $books = $query->orderBy('book_date', 'asc')
             ->paginate($perPage);
 
         // Add file and image URLs to each book
@@ -91,7 +91,7 @@ class BookController extends Controller
         $books = Book::with(['category'])
             ->active()
             ->new()
-            ->orderBy('book_date', 'desc')
+            ->orderBy('book_date', 'asc')
             ->limit(10)
             ->get();
 
@@ -115,7 +115,7 @@ class BookController extends Controller
         $books = Book::with(['category'])
             ->active()
             ->priority()
-            ->orderBy('book_date', 'desc')
+            ->orderBy('book_date', 'asc')
             ->get();
 
         // Add file and image URLs to each book
@@ -145,7 +145,7 @@ class BookController extends Controller
         }
 
         $perPage = $request->get('per_page', 15);
-        $books = $query->orderBy('book_date', 'desc')
+        $books = $query->orderBy('book_date', 'asc')
             ->paginate($perPage);
 
         // Add file and image URLs to each book
@@ -180,7 +180,7 @@ class BookController extends Controller
                 break;
         }
 
-        $books = $query->orderBy('book_date', 'desc')->get();
+        $books = $query->orderBy('book_date', 'asc')->get();
 
         // Add file and image URLs to each book
         $books->transform(function ($book) {
